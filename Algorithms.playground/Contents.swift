@@ -174,3 +174,6 @@ extension Array where Element : Comparable{
 let unsortedQuickArray : [Int] =  [8, 3, 5, 1, 10, 6, 2]
 
 print("Quick Sort : \(unsortedQuickArray.quickSort(by: <))")
+
+//****Fastest Search Algo ()*******//
+
