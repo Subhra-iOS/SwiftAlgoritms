@@ -175,5 +175,102 @@ let unsortedQuickArray : [Int] =  [8, 3, 5, 1, 10, 6, 2]
 
 print("Quick Sort : \(unsortedQuickArray.quickSort(by: <))")
 
-//****Fastest Search Algo ()*******//
+//*********Median of two Array**********//
+let arr1 = [1,3, 5]
+let arr2 = [2, 4, 6]
 
+func medianOfTwoSortedArrayWith(firstArr : [Int], secondArr : [Int]) -> Float{
+    
+    var sortedArray = [Int]()
+    let firstArrCount = firstArr.count
+    let secondArrCount = secondArr.count
+    var rightIndex = 0
+    var leftIndex = 0
+    
+    while(leftIndex < firstArrCount && rightIndex < secondArrCount ){
+        if firstArr[leftIndex] < secondArr[rightIndex]{
+            sortedArray.append(firstArr[leftIndex])
+            leftIndex = leftIndex + 1
+            
+        }else if secondArr[rightIndex] < firstArr[leftIndex]{
+            sortedArray.append(secondArr[rightIndex])
+            rightIndex = rightIndex + 1
+            
+        }else{
+            sortedArray.append(firstArr[leftIndex])
+            leftIndex = leftIndex + 1
+            sortedArray.append(secondArr[rightIndex])
+            rightIndex = rightIndex + 1
+        }
+    }
+    
+    while leftIndex < firstArr.count {
+        sortedArray.append(firstArr[leftIndex])
+        leftIndex = leftIndex + 1
+    }
+    
+    while rightIndex < secondArr.count {
+        sortedArray.append(secondArr[rightIndex])
+        rightIndex = rightIndex + 1
+    }
+    
+    print("Sorted Array : \(sortedArray)")
+    
+    let middleValue = sortedArray[(firstArrCount + secondArrCount)/2]
+    let preMiddleValue = sortedArray[((firstArrCount + secondArrCount)/2) - 1]
+    
+    let median = Float(middleValue + preMiddleValue)/2
+    
+    return median
+}
+
+print("\(medianOfTwoSortedArrayWith(firstArr: arr1, secondArr: arr2))")
+
+//******Find duplicate from array****//
+let array = [1, 3, 1, 4, 3, 6]
+
+func  findDuplicateArrayWith(arr : [Int]) -> [Int]{
+    
+    var numericSet : Set = Set<Int>()
+    var duplicates : [Int] = [Int]()
+    for i in 0 ..< arr.count - 1{
+        let value = arr[i]
+        if numericSet.contains(value){
+            duplicates.append(value)
+        }else{
+            numericSet.insert(value)
+        }
+    }
+    return duplicates
+    
+}
+
+print("Find duplicate : \(findDuplicateArrayWith(arr: array))")
+//******Find longest consecutive numbers*********//
+
+let unsortedArr = [4, 2, 1, 6, 5]
+
+func  longestSequesnceConsequtiveArrWith(arr : [Int]) -> ( arrLength : Int, conArr : [Int]){
+     var numericSet : Set = Set<Int>()
+    for (_, value) in arr.enumerated(){
+        numericSet.insert(value)
+    }
+    
+    var consecutiveArr = [Int]()
+    var maxLength = 0
+    
+    for (_, ele) in arr.enumerated() {
+        var element = ele
+        if numericSet.contains(element - 1){  continue }
+        var len = 0
+        while (numericSet.contains(element)) {
+            len = len + 1
+            consecutiveArr.append(element)
+            element = element + 1
+        }
+         maxLength = max(maxLength, len)
+    }
+    return (maxLength, consecutiveArr)
+}
+
+print("\(longestSequesnceConsequtiveArrWith(arr: unsortedArr))")
