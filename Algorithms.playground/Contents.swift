@@ -274,3 +274,185 @@ func  longestSequesnceConsequtiveArrWith(arr : [Int]) -> ( arrLength : Int, conA
 }
 
 print("\(longestSequesnceConsequtiveArrWith(arr: unsortedArr))")
+//*********Stack*************//
+
+struct  Stack<Element>{
+    private var stackArr : [Element] = [Element]()
+    
+    mutating func push(element : Element) -> Void{
+        stackArr.append(element)
+    }
+    
+    mutating func pop() -> Element?{
+        return stackArr.popLast()
+    }
+    
+    func peek() -> Element?{
+        return stackArr.last
+    }
+    
+    func top() -> Element?{
+        return stackArr.last
+    }
+    
+    func allObjects() -> [Element]?{
+        return stackArr
+    }
+    
+    func isEmpty() -> Bool{
+        return stackArr.count > 0 ? false : true
+    }
+    
+}
+
+let unSortStackArray = [8, 5, 7, 1, 9, 12, 10]
+
+func sortArrayWithStackMethodWith(arr : [Int]) -> [Int]{
+    
+        var sortedArr : [Int]!
+        var arrStack : Stack<Int> = Stack()
+        for i in 0 ..< arr.count{
+            arrStack.push(element: arr[i])
+        }
+    
+        sortedArr = sortStackWith(inputStack: arrStack)
+        return sortedArr
+    }
+
+private func sortStackWith(inputStack : Stack<Int>) -> [Int]{
+    
+    var tempStack : Stack<Int> = Stack()
+    var input : Stack<Int> = inputStack
+    
+    while !input.isEmpty(){
+        
+        guard let temp = input.top() else { return [0] }
+        input.pop()
+       
+        while !tempStack.isEmpty(), let lastElement = tempStack.top(), lastElement < temp {
+            input.push(element: lastElement)
+            print("\(input.allObjects()!)")
+            tempStack.pop()
+        }
+        
+        tempStack.push(element: temp)
+        
+    }
+    
+    return  input.allObjects()!
+}
+
+print("Sort Array with Stack : \(sortArrayWithStackMethodWith(arr: unSortStackArray))")
+
+//**********Hash Table************//
+
+struct HasTable<Key : Hashable, Value : Any>{
+    fileprivate typealias Element = (key : Key, value : Value)
+    fileprivate typealias HashBucket = [Element]
+    private var hashBuckets : [HashBucket]?
+    
+    private var count = 0
+    
+    init(capacity : Int) {
+        hashBuckets = [HashBucket](repeating: [], count: capacity)
+    }
+    
+    public func empty() -> Bool{
+        return count == 0
+    }
+    
+    private func index(key : Key) -> Int{
+        if let bucketArr = hashBuckets, bucketArr.count > 0{
+            return abs(key.hashValue % bucketArr.count)
+        }else{
+            return 0
+        }
+    }
+    
+    public subscript (key : Key) -> Value?{
+        get{
+            return value(key: key)
+        }
+        set{
+            if let value = newValue{
+                update(value: value, forKey: key)
+            }else{
+                remove(forKey: key)
+            }
+        }
+    }
+    
+    public func value(key : Key) -> Value?{
+        let arrIndex = self.index(key: key)
+        var result : Value?
+        if let bucketArr : [HashBucket] = hashBuckets, bucketArr.count > 0{
+            for (_ , element) in bucketArr[arrIndex].enumerated(){
+                if element.key == key {
+                    result = element.value
+                    break
+                }
+            }
+        }
+        return result
+    }
+    
+    public mutating func update(value : Value, forKey key : Key) -> Value?{
+        let arrIndex = self.index(key: key)
+        
+        if var bucketArr : [HashBucket] = hashBuckets, bucketArr.count > 0{
+            for (i , element) in bucketArr[arrIndex].enumerated(){
+                if element.key == key {
+                    let oldValue = element.value
+                    hashBuckets?[arrIndex][i].value = value
+                    return  oldValue
+                }
+            }
+            hashBuckets?[arrIndex].append((key: key, value: value))
+            count = count + 1
+        }
+        return  nil
+    }
+    
+    public mutating func remove(forKey key : Key) -> Value?{
+        let arrIndex = self.index(key: key)
+        if var bucketArr : [HashBucket] = hashBuckets, bucketArr.count > 0{
+            for (i , element) in bucketArr[arrIndex].enumerated(){
+                if element.key == key {
+                    let oldValue = element.value
+                    hashBuckets?[arrIndex].remove(at: i)
+                    count = count - 1
+                    return  oldValue
+                }
+            }
+        }
+        return  nil
+    }
+    
+    public mutating func removeAll(){
+        self.hashBuckets = [HashBucket](repeating: [], count: self.hashBuckets!.count)
+        self.count = 0
+    }
+    
+}
+
+var hashTable : HasTable = HasTable<String, Any>(capacity: 5)
+hashTable["name"] = "Subhra Roy"
+hashTable["phoneNumber"] = NSNumber(value: Int64(8902178012))
+
+if let name : String = hashTable["name"] as? String{
+    print("\(name)")
+}
+
+if let phoneNo : NSNumber = hashTable["phoneNumber"] as? NSNumber{
+    print("\(phoneNo)")
+}
+
+//hashTable.remove(forKey: "phoneNumber")
+hashTable.update(value: NSNumber(value: Int64(8902178010)), forKey: "phoneNumber")
+
+if let phoneNo : NSNumber = hashTable["phoneNumber"] as? NSNumber{
+    print("\(phoneNo)")
+}else{
+    print("No Phone Number")
+}
+
