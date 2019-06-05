@@ -456,3 +456,30 @@ if let phoneNo : NSNumber = hashTable["phoneNumber"] as? NSNumber{
     print("No Phone Number")
 }
 
+//**********Palindrom***********//
+ let sentence = "madam anna kayak notapalindrom anna civic racecar"
+
+func checkPalindrom(str : String) -> Void {
+    let  strArr = str.components(separatedBy: " ")
+    strArr.forEach { (word) in
+        if isPalindrom(aWord: word){
+            print("\(word) is Palindrom")
+        }else{
+            print("\(word) is not a Palindrom")
+        }
+    }
+}
+
+private func isPalindrom(aWord : String) -> Bool{
+    let characters = Array(aWord)
+    var currentIndex = 0
+    while currentIndex < (characters.count / 2) {
+        if  characters[currentIndex] != characters[characters.count - currentIndex - 1]{
+            return false
+        }
+        currentIndex = currentIndex + 1
+    }
+    return true
+}
+
+print("\(checkPalindrom(str: sentence))")
