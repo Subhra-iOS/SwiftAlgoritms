@@ -483,3 +483,43 @@ private func isPalindrom(aWord : String) -> Bool{
 }
 
 print("\(checkPalindrom(str: sentence))")
+
+//recursive enumeration
+indirect enum Algorithm<T> {
+    
+    case Empty
+    case Elements(Array<T>)
+    case InsertionSort(Algorithm<T>)
+    case BubbleSort(Algorithm<T>)
+    case SelectionSort(Algorithm<T>)
+}
+
+//build an algorithm model
+let list = Algorithm.Elements([8, 2, 10, 9, 7, 5])
+let model = Algorithm.BubbleSort(list)
+
+print("\(model)")
+
+extension  Int {
+    
+    func  fibonacciWith() -> Array<Int>?{
+        
+        guard self > 2 else{ return nil }
+        
+        var sequence : Array<Int> = [0, 1]
+        var  i = sequence.count
+        while i != self{
+            
+            let result = sequence[i - 1] + sequence[ i - 2]
+            sequence.append(result)
+            i = i + 1
+        }
+        
+        return sequence
+    }
+    
+}
+
+let maxNumber : Int = 10
+let sequence = maxNumber.fibonacciWith()
+print("\(String(describing: sequence))")
