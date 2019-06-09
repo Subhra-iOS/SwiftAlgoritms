@@ -523,3 +523,40 @@ extension  Int {
 let maxNumber : Int = 10
 let sequence = maxNumber.fibonacciWith()
 print("\(String(describing: sequence))")
+
+/*An hour glass is made of 7 cells
+ in following form.
+ A B C
+    D
+ E F G*/
+
+func hourglassSum(arr: [[Int]]) -> Int {
+    
+    let h = arr.count
+    if h < 3 {
+        return 0
+    }
+    let w = arr[0].count
+    if w < 3 {
+        return 0
+    }
+    var maxSum: Int?
+    
+    for i in 0 ..< h - 2 {
+        for j in 0 ..< w - 2 {
+            // Considering matrix[i][j] as top left cell of hour glass.
+            let sum = arr[i][j] + arr[i][j+1] + arr[i][j+2]
+                + arr[i+1][j+1]
+                + arr[i+2][j] + arr[i+2][j+1] + arr[i+2][j+2]
+            // If previous sum is less then current sum then update new sum in maxSum
+            if let maxValue = maxSum {
+                maxSum = max(maxValue, sum)
+            } else {
+                maxSum = sum
+            }
+        }
+    }
+    return maxSum ?? 0
+}
+
+
