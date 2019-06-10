@@ -42,7 +42,7 @@ func binarySearch<T: Comparable>(_ a: [T], key: T, range: Range<Int>) -> Int? {
 
 let numbers = [11, 59, 3, 2, 53, 17, 31, 7, 19, 67, 47, 13, 37, 61, 29, 43, 5, 41, 23]
 
-numbers.index(of: 43)  // returns 15
+numbers.firstIndex(of: 43)  // returns 15
 
 //MARK:---------- Bubble Sort---------------//
 
@@ -81,7 +81,7 @@ func generateFibonnaciSeries(){
 		var i = 2
 		for i in 2 ..< 20{
 			
-			mArray.append(NSNumber(value: Double(mArray[i-1]) +  Double(mArray[i-2])))
+            mArray.append(NSNumber(value: Double(truncating: mArray[i-1]) +  Double(truncating: mArray[i-2])))
 		}
 		print("mArray \(mArray)");
 }
@@ -131,7 +131,7 @@ func starPattern1() -> Void{
 	
 	for i in 0..<6 {
 		var star : String = ""
-		for j in (i+1)..<6 {
+        for _ in (i+1)..<6 {
 			star = star + "*"
 		}
 		print("\(star)")
@@ -147,7 +147,7 @@ func starPattern2() -> Void{
 	
 	for i in 0..<6{
 		var star : String = ""
-		for j in 1...(i+1){
+        for _ in 1...(i+1){
 			star = star + "*"
 		}
 		print("\(star)")
