@@ -31,6 +31,7 @@ class Node{
         self.value = value
         self.nextNode = next
     }
+
 }
 
 
@@ -68,3 +69,64 @@ func reverseLiskListWith(head : Node?) -> Node?{
 
 let reverseLink = reverseLiskListWith(head: nodeOne)
 printLinkListWith(node: reverseLink)
+//*****Insertion*******//
+class LinkList{
+    
+    var head : Node?
+    
+    func setUpLinkList(){
+        let nodeThree : Node = Node(value: 3, next: nil)
+        let nodeTwo : Node = Node(value: 2, next: nodeThree)
+        head  = Node(value: 1, next: nodeTwo)
+    }
+    
+    func displayItem(){
+        print("Display Link List")
+        var currentNode = head
+        while currentNode != nil {
+            print("\(currentNode?.value ??  -1)")
+            currentNode = currentNode?.nextNode
+        }
+    }
+    
+    func insert(value : Int){
+        
+        if head == nil{
+            head = Node(value: 1, next: nil)
+            return
+        }
+        
+        var currentNode = head
+        while currentNode?.nextNode != nil {
+            currentNode = currentNode?.nextNode
+        }
+        
+        currentNode?.nextNode = Node(value: value, next: nil)
+        
+    }
+    
+    func delete(value : Int){
+        if head?.value == value{
+            head = head?.nextNode
+            return
+        }
+        var current = head
+        var prev : Node?
+        while current != nil && current?.value != value {
+            prev = current
+            current = current?.nextNode
+        }
+        prev?.nextNode = current?.nextNode
+    }
+    
+}
+
+let list = LinkList()
+list.setUpLinkList()
+list.displayItem()
+list.insert(value: 4)
+list.insert(value: 5)
+list.insert(value: 6)
+list.displayItem()
+list.delete(value: 6)
+list.displayItem()
