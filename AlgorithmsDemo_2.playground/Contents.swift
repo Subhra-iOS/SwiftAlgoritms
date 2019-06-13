@@ -143,3 +143,69 @@ list.delete(value: 6)
 list.displayItem()
 let midNode = list.midNode(head: nodeOne)
 print("\(String(describing: midNode?.value))")
+
+//******Heap**********//
+struct MinHeap{
+    
+    var items : [Int] = [Int]()
+    //Get Index
+    private func getLeftChildIndex( parentIndex : Int) -> Int{
+        return 2*parentIndex + 1
+    }
+    private func getRightChildIndex( parentIndex : Int) -> Int{
+        return 2*parentIndex + 2
+    }
+    private func getParentIndex(childIndex : Int) -> Int{
+        return (childIndex - 1) / 2
+    }
+    //Get Boolean Check
+    private func hasLeftChild(index : Int) -> Bool{
+        return getLeftChildIndex(parentIndex: index) < items.count
+    }
+    private func hasRightChild(index : Int) -> Bool{
+        return getRightChildIndex(parentIndex: index) < items.count
+    }
+    private func hasParent(index : Int) -> Bool{
+        return getParentIndex(childIndex: index) >= 0
+    }
+    //Return an item from heap
+    private func leftChild(index : Int) -> Int{
+        return items[getLeftChildIndex(parentIndex: index)]
+    }
+    private func rightChild(index : Int) -> Int{
+        return items[getRightChildIndex(parentIndex: index)]
+    }
+    private func parent(index : Int) -> Int{
+        return items[getParentIndex(childIndex: index)]
+    }
+    private  mutating func swap(indexOne : Int, indexTwo : Int){
+        let placeHolder = items[indexOne]
+        items[indexOne] = items[indexTwo]
+        items[indexTwo] = placeHolder
+    }
+    
+    public func peek() -> Int{
+        if items.count != 0{
+            return items[0]
+        }else{
+            fatalError()
+        }
+    }
+    
+    mutating public func poll() -> Int{
+        if items.count != 0{
+            let item = items[0]
+            items[0] = items[items.count - 1]
+            headTraverseDown()
+            return item
+        }else{
+            fatalError()
+        }
+    }
+    
+   mutating  public func add(item : Int){
+        items.append(item)
+        headTraverseUp()
+    }
+    
+}
