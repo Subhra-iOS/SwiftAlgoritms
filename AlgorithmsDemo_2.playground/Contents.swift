@@ -119,6 +119,17 @@ class LinkList{
         prev?.nextNode = current?.nextNode
     }
     
+    func  midNode(head : Node?) -> Node?{
+        var slowNode = head
+        var fastNode = head
+        while fastNode != nil && fastNode?.nextNode != nil {
+            slowNode = slowNode?.nextNode
+            fastNode = fastNode?.nextNode?.nextNode
+        }
+        
+        return slowNode
+    }
+    
 }
 
 let list = LinkList()
@@ -130,3 +141,5 @@ list.insert(value: 6)
 list.displayItem()
 list.delete(value: 6)
 list.displayItem()
+let midNode = list.midNode(head: nodeOne)
+print("\(String(describing: midNode?.value))")
