@@ -208,4 +208,12 @@ struct MinHeap{
         headTraverseUp()
     }
     
+    private func headTraverseDown() -> Void{
+        
+    }
+    
+    private func headTraverseUp() -> Void{
+        
+    }
+    
 }
