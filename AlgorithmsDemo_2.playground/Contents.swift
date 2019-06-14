@@ -192,6 +192,11 @@ struct MinHeap{
         }
     }
     
+    
+  private  func isRoot(_ index: Int) -> Bool {
+        return index == 0
+    }
+    
     mutating public func poll() -> Int{
         if items.count != 0{
             let item = items[0]
@@ -209,6 +214,7 @@ struct MinHeap{
     }
     
     private func headTraverseDown() -> Void{
+        
         
     }
     
