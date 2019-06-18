@@ -255,23 +255,24 @@ func printBinaryDigitWith(string : String, index : Int) -> Void{
     
     let mutableStr : String = string
     
-    if index == mutableStr.count - 1 {
+    if index == mutableStr.count  {
         print("\(mutableStr)")
+        return
     }else{
         guard let index0 : String.Index = string.firstIndex(of: "?") else {
-            printBinaryDigitWith(string: mutableStr, index: index + 1)
+            
             return
         }
         // let position : String.IndexDistance = mutableStr.distance(from: mutableStr.startIndex, to: idx)
-        let newStr0 : String = mutableStr.replaceCharacterAt(index: index0.hashValue, with: String.Element("0"))
+        let newStr0 : String = mutableStr.replaceCharacterAt(index: index0.encodedOffset, with: String.Element("0"))
         print("\(newStr0)")
-        guard let index1 : String.Index = string.firstIndex(of: "?") else {
-            printBinaryDigitWith(string: mutableStr, index: index + 1)
+        guard let index1 : String.Index = newStr0.firstIndex(of: "?") else {
+            
             return
         }
-        let newStr1 : String = newStr0.replaceCharacterAt(index: index1.hashValue, with: String.Element("1"))
+        let newStr1 : String = newStr0.replaceCharacterAt(index: index1.encodedOffset, with: String.Element("1"))
         print("\(newStr1)")
-        printBinaryDigitWith(string: newStr1, index: (index1.hashValue + 1))
+        printBinaryDigitWith(string: newStr1, index: (index1.encodedOffset + 1))
     }
     
 }
