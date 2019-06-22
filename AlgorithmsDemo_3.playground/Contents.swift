@@ -288,3 +288,21 @@ extension String{
 }
 
 printBinaryDigitWith(string: "1??0?101", index: 0)
+//***********Find multiple occurarnce of letter**********//
+
+func findMultipleOccuranceIn(text : String) -> [Character]{
+    var characterSet : Set<Character> = Set<Character>()
+    let characters : [Character] = Array(text)
+    var outputArr : [Character] = [Character]()
+    print("\(characters)")
+    for (_ , character) in characters.enumerated(){
+        if characterSet.contains(character){
+            outputArr.append(character)
+        }else{
+            characterSet.insert(character)
+        }
+    }
+    return outputArr
+}
+
+print("\(findMultipleOccuranceIn(text: "BCABA"))")
