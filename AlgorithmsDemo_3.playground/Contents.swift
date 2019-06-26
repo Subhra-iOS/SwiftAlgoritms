@@ -306,3 +306,62 @@ func findMultipleOccuranceIn(text : String) -> [Character]{
 }
 
 print("\(findMultipleOccuranceIn(text: "BCABA"))")
+
+let inputArr = [0, 1, 0, 2, 3, 0]
+//Output would be [1, 2, 3, 0, 0, 0]
+
+private func findNonZeroWith(ele : Int, arrary : [Int]) -> Int{
+    var i = ele
+    while i < (arrary.count) && arrary[i] == 0{
+        i = i + 1
+    }
+    return i
+}
+
+func arrangeArrWith(arr : [Int]) -> [Int] {
+    var currentArr = arr
+    var j = 0
+    for i in 0 ..< currentArr.count{
+        if currentArr[i] == 0 {
+            j = findNonZeroWith(ele : i, arrary : currentArr)
+            if j < currentArr.count{
+                currentArr.swapAt(i, j)
+            }
+        }
+    }
+      return  currentArr
+}
+    
+print("\(arrangeArrWith(arr: inputArr))")
+
+
+class Queue{
+    
+    var stack : [Int] = [Int]()
+    
+    func enqueue(element : Int) {
+        
+        self.stack.append(element)
+        
+    }
+    
+    func dequeue() -> Int{
+        
+        if self.stack.count > 0 { return  reverse() }
+        else { return 0 }
+        
+    }
+    
+    private func reverse() -> Int{
+        if self.stack.count == 1{
+             return   self.stack.popLast()!
+        }else{
+            let currentValue = self.stack.popLast()!
+            reverse()
+            self.stack.append(currentValue)
+        }
+        
+        return 0
+    }
+    
+}
