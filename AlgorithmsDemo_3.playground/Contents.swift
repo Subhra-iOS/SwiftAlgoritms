@@ -365,3 +365,36 @@ class Queue{
     }
     
 }
+
+//********Find common element from following arrays (Intersection between array)********//
+let array1 = [2,6,9,11,13,17]
+let array2 = [3,6,7,10,13,18]
+let array3 = [4,5,6,9,11,13]
+
+//Output = [6,13]
+
+func findIntersectionWith(arr1 : [Int], arr2 : [Int], arr3 : [Int]) -> [Int]{
+    
+    var x = 0
+    var y = 0
+    var z = 0
+    var result : [Int] = [Int]()
+    while !notOutOfBoundWith(indx: x, indx1: y, indx2: z){
+        if arr1[x] == arr2[y] && arr2[y] == arr3[z] {
+            result.append(arr1[x])
+            x = x + 1
+            y = y + 1
+           z = z + 1
+        }
+        else if arr1[x] < arr2[y] { x = x + 1 }
+        else if arr1[y] < arr2[z] { y = y + 1 }
+        else { z = z + 1 }
+    }
+    return result
+}
+
+func notOutOfBoundWith(indx : Int, indx1 : Int, indx2 : Int) -> Bool{
+    return (indx >= array1.count || indx1 >= array2.count || indx2 >= array3.count)
+}
+
+print("\(findIntersectionWith(arr1: array1, arr2: array2, arr3: array3))")
