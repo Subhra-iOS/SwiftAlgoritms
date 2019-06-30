@@ -398,3 +398,48 @@ func notOutOfBoundWith(indx : Int, indx1 : Int, indx2 : Int) -> Bool{
 }
 
 print("\(findIntersectionWith(arr1: array1, arr2: array2, arr3: array3))")
+
+//*********Most frequent element in Array***********//
+let inputArr1 = [1,6,2,1,6,1,6]
+//outPutArr = [1,6]
+
+func findMostFrequentElementsWith(arr : [Int]) -> [Int]?{
+    var hashTable : [String : Int] = [String : Int]()
+    var resultArr : [Int] = [Int]()
+    
+    var hashValue : Int = 1
+    for (_, ele) in arr.enumerated(){
+        if let occuranceCount = hashTable["\(ele)"]{
+            hashTable["\(ele)"] = occuranceCount + 1
+            hashValue = occuranceCount + 1
+        }else{
+            hashTable["\(ele)"] = 1
+            hashValue = 1
+        }
+        resultArr.append(hashValue)
+    }
+    
+    let set : NSSet = NSSet(array: resultArr)
+    let array : [Int] = set.allObjects as! [Int]
+    
+    print("\(hashTable)")
+    print("\(array)")
+    
+    resultArr.removeAll()
+    
+    let maxValue : Int = array.sorted { (ele1, ele2) -> Bool in
+       return  ele1 > ele2
+    }.first!
+    
+    print("\(maxValue)")
+    let maxOccuranceDict : [String : Int] = hashTable.filter { $0.value == maxValue }
+    print("\(maxOccuranceDict)")
+    
+    for key in maxOccuranceDict.keys{
+        resultArr.append(Int(key)!)
+    }
+    
+    return resultArr
+}
+
+print("\(String(describing: findMostFrequentElementsWith(arr: inputArr1)))")
