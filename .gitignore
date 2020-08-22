@@ -6,3 +6,4 @@
 *.xcuserstate
 Algorithms.playground/playground.xcworkspace/xcuserdata/subhraroy.xcuserdatad/UserInterfaceState.xcuserstate
 *.xctimeline
+.DS_Store
