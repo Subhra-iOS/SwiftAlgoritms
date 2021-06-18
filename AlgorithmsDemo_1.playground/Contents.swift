@@ -86,7 +86,7 @@ func generateFibonnaciSeries(){
 		print("mArray \(mArray)");
 }
 
-generateFibonnaciSeries()
+generateFibonnaciSeries
 
 /*func depthFirstSearch(_ graph: Graph, source: Node) -> [String] {
 	var nodesExplored = [source.label]
